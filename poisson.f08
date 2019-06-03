@@ -23,13 +23,13 @@ subroutine carga_puntual(i, j, k, L, n, rho)
 	end if
 end subroutine carga_puntual
 
-subroutine matrix_generator(A, b, n, tx, ty, tz)
+subroutine matrix_generator(A, b, n, tx, ty, tz, L)
 	! Recibe una matriz A de tamaño n^3 x n^3, un vector b de tamaño
 	! n^3, el numero n de puntos, y las temperaturas en las paredes de 
 	! la caja tx, ty y tz, para cada pared.
 	implicit none
 	integer, intent(in) :: n
-    double precision, intent(in) :: tx, ty, tz
+    double precision, intent(in) :: tx, ty, tz, L
     double precision, dimension(n**3), intent(out) :: b
     double precision, dimension(n**3, n**3), intent(out) :: A
     integer :: i, j, k
@@ -43,7 +43,7 @@ subroutine matrix_generator(A, b, n, tx, ty, tz)
     		do k = 0, n - 1
 
     		! Para cada fila se obtiene el valor del vector b
-    		call carga_puntual(i, j, k, n, rho)
+    		call carga_puntual(i, j, k, L, n, rho)
     		b(i * n**2 + j * n + k + 1) = rho
     		
     		! Si estamos en una pared x=0 o x=L obtenemos el valor de la matriz
@@ -82,14 +82,14 @@ subroutine matrix_generator(A, b, n, tx, ty, tz)
 end subroutine matrix_generator
 
 
-subroutine LinearEquations(n, b, tx, ty, tz)
+subroutine LinearEquations(n, b, tx, ty, tz, L)
 	! Subrutina que resuelve un sistema de n^3 x n^3
 	! dadas 3 condiciones de borde (tx, ty, tz). Se
 	! utiliza una subrutina de Lapack (DGESV) para resolver
 	! el sistema. La solucion se guarda en el vector b.
 	implicit none
 	integer, intent(in) :: n
-    double precision, intent(in) :: tx, ty, tz
+    double precision, intent(in) :: tx, ty, tz, L
     double precision, dimension(n**3), intent(inout) :: b
     double precision, dimension(n**3, n**3) :: A
     integer :: i, j, k, info
@@ -104,7 +104,7 @@ subroutine LinearEquations(n, b, tx, ty, tz)
     end do
 
     ! Se llama a la subrutina para generar la matriz
-    call matrix_generator(A, b, n, tx, ty, tz)
+    call matrix_generator(A, b, n, tx, ty, tz, L)
     ! Se llama a la subrutina que resuelve el sistema
     call DGESV(n**3, 1, A, n**3, pivot, b, n**3, info)
 
@@ -113,6 +113,7 @@ end subroutine LinearEquations
 program MAIN
 	! Programa principal. Recibe el numero de puntos que se usaran
 	! (n), las condiciones de borde de las paredes (tx, ty, tz),
+	! el largo de la caja que se usa para las condiciones de borde (L)
 	! un vector en el que se guardara la solución al sistema
 	! de ecuaciones (b), y dos variables que miden el tiempo
 	! de ejecucion (start, finish).
@@ -120,7 +121,7 @@ program MAIN
 	! Se establece el numero de puntos que se usará en la subdivision 
 	! del espacio
 	integer, parameter :: n = 15
-	double precision :: tx, ty, tz
+	double precision :: tx, ty, tz, L
 	double precision, dimension(n**3) :: b
 	real :: start, finish
 
@@ -128,13 +129,14 @@ program MAIN
 	tx = 0.0d+0
 	ty = 0.0d+0
 	tz = 0.0d+0
+	L = 1.0d+0
 
 	! Abre un archivo en el cual se guardara la solucion al problema
 	open(1, file='data.dat')
 	! Se guarda el tiempo inicial
 	call cpu_time(start)
 	! Resuelve el sistema de ecuaciones
-	call LinearEquations(n, b, tx, ty, tz)
+	call LinearEquations(n, b, tx, ty, tz, L)
 	! Se guarda el tiempo final
 	call cpu_time(finish)
 	! Se imprime en pantalla el numero de puntos usados, y el tiempo
