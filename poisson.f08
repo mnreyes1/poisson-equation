@@ -110,6 +110,19 @@ subroutine LinearEquations(n, b, tx, ty, tz, L)
 
 end subroutine LinearEquations
 
+subroutine potencial_esperado(x, L)
+	! Funcion que define el potencial esperando para una carga puntual
+	double precision, intent(in) :: L
+	double precision, intent(out) :: x
+	real(8),  parameter :: PI_8  = 4 * atan (1.0_8)
+
+	r = (3.0d+0 * (L/2)**2)**(0.5d+0)
+	! Valor del potencial
+	x = -1.0d+0 / (r * 4.0d+0 * PI_8)
+
+end subroutine potencial_esperado
+
+
 program MAIN
 	! Programa principal. Recibe el numero de puntos que se usaran
 	! (n), las condiciones de borde de las paredes (tx, ty, tz),
@@ -121,15 +134,17 @@ program MAIN
 	! Se establece el numero de puntos que se usará en la subdivision 
 	! del espacio
 	integer, parameter :: n = 15
-	double precision :: tx, ty, tz, L
+	double precision :: tx, ty, tz, L, potencial
 	double precision, dimension(n**3) :: b
 	real :: start, finish
 
-	! Se asignan los valores de las condiciones de borde
-	tx = 0.0d+0
-	ty = 0.0d+0
-	tz = 0.0d+0
+	! Se asignan los valores de las condiciones de borde usando como referencia
+	! el potencial que se obtendria de una carga puntual a distancia L/2
 	L = 1.0d+0
+	call potencial_esperado(potencial, L)
+	tx = potencial
+	ty = potencial
+	tz = potencial
 
 	! Abre un archivo en el cual se guardara la solucion al problema
 	open(1, file='data.dat')
