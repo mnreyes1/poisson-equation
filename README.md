@@ -1,5 +1,3 @@
-# Welcome to StackEdit!
-
 # Poisson Equation
 Solving the Poisson equation with different charge densities
 
