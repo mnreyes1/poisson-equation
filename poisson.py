@@ -19,8 +19,6 @@ def f(x, y, z):
     r = np.sqrt(x**2 + y**2 + z**2)
     return k * Q / r
 
-print(k * Q / np.sqrt(3))
-
 # Valores de las posiciones de X, Y y Z que usaremos del espacio
 X = [(((i // n**2) % n) - n // 2) * L / (n - 1) for i in range(n**3)]
 Y = [(((i // n) % n) - n // 2) * L / (n - 1) for i in range(n**3)]
