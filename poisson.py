@@ -5,7 +5,7 @@ import numpy as np
 # Se usara que epsilon_0 = 1
 
 # Numero de puntos usados
-n = 19
+n = 13
 # Largo de la caja
 L = 1
 # Constante de potencial electrico

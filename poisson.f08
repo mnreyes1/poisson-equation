@@ -134,7 +134,7 @@ program MAIN
 	implicit none
 	! Se establece el numero de puntos que se usará en la subdivision 
 	! del espacio
-	integer, parameter :: n = 19
+	integer, parameter :: n = 13
 	double precision :: tx, ty, tz, L, potencial
 	double precision, dimension(n**3) :: b
 	real :: start, finish

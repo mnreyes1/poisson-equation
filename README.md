@@ -6,7 +6,25 @@ and a punctual charge density (an electron in the middle of the box).
 
 The charge of electron is assumed as e = -1. The lenght of the box is 1. The boundary conditions are that the box has potential equal to zero.
 
-The program is efficient while n is less than 15.
+The program is efficient while n is less than 17.
+
+## Usage
+
+To execute all code, use command
+
+	make
+
+To only compile and execute fortran code use command
+
+	make compile
+
+To only see plots use
+
+	make plot
+
+To clean directory use
+
+	make clean
 
 ## Installing Lapack
 (Reference: https://coral.ise.lehigh.edu/jild13/2016/07/27/install-lapack-and-blas-on-linux-based-systems/)
