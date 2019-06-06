@@ -5,13 +5,15 @@ import numpy as np
 # Se usara que epsilon_0 = 1
 
 # Numero de puntos usados
-n = 15
+n = 19
 # Largo de la caja
 L = 1
 # Constante de potencial electrico
 k = 1 / (4 * np.pi)
 # carga del electron
 Q = -1
+# Parametro de separacion en la grilla
+h = L / (n - 1)
 
 
 def f(x, y, z):
@@ -20,9 +22,9 @@ def f(x, y, z):
     return k * Q / r
 
 # Valores de las posiciones de X, Y y Z que usaremos del espacio
-X = [(((i // n**2) % n) - n // 2) * L / (n - 1) for i in range(n**3)]
-Y = [(((i // n) % n) - n // 2) * L / (n - 1) for i in range(n**3)]
-Z = [((i % n) - n // 2) * L / (n - 1) for i in range(n**3)]
+X = [(((i // n**2) % n) - n // 2) * h for i in range(n**3)]
+Y = [(((i // n) % n) - n // 2) * h for i in range(n**3)]
+Z = [((i % n) - n // 2) * h for i in range(n**3)]
 
 
 # Lista en la que se guardaran los valores del potencial
@@ -38,14 +40,6 @@ for i in range(n**3):
     P.append(value)
 
 
-# Se grafica el potencial, con colores que indican la intensidad de este
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-img = ax.scatter(X, Y, Z, c=P, cmap=plt.hot(), marker='.')
-fig.colorbar(img)
-plt.show()
-plt.close()
-
 # Abre el archivo obtenido de poisson.f08 (solucion al sistema de ecuaciones)
 with open('data.dat') as f:
     data = f.readline()
@@ -54,10 +48,34 @@ with open('data.dat') as f:
     data = [i.strip().replace('E-00', 'e-') for i in data]
     data = [float(i) for i in data]
 
-# Grafica la solucion obtenida numericamente
+
+'''
+# Se grafica el potencial, con colores que indican la intensidad de este
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-img = ax.scatter(X, Y, Z, c=data, cmap=plt.hot(), marker='.')
+img = ax.scatter(X, Y, Z, c=P, cmap=plt.hot(), marker='o')
 fig.colorbar(img)
 plt.show()
 plt.close()
+
+# Grafica la solucion obtenida numericamente
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+img = ax.scatter(X, Y, Z, c=data, cmap=plt.hot(), marker='o')
+fig.colorbar(img)
+plt.show()
+plt.close()
+'''
+
+plot2_a = []
+plot2_b = []
+
+for i in range(n**3):
+    if X[i] == 0 and Y[i] == h:
+        plot2_a.append(P[i])
+        plot2_b.append(data[i])
+
+plt.plot(Z[0:n], plot2_a)
+plt.show()
+plt.plot(Z[0:n], plot2_b)
+plt.show()

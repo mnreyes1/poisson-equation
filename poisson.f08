@@ -97,10 +97,10 @@ subroutine LinearEquations(n, b, tx, ty, tz, L)
 
     ! Se rellena de ceros la matriz y el vector
     do i = 1, n**3
-    b(i) = 0.0d+0
-    do j = 1, n**3
-    A(i, j) = 0.0d+0
-    end do
+        b(i) = 0.0d+0
+        do j = 1, n**3
+            A(i, j) = 0.0d+0
+        end do
     end do
 
     ! Se llama a la subrutina para generar la matriz
@@ -109,6 +109,7 @@ subroutine LinearEquations(n, b, tx, ty, tz, L)
     call DGESV(n**3, 1, A, n**3, pivot, b, n**3, info)
 
 end subroutine LinearEquations
+
 
 subroutine potencial_esperado(x, L)
 	! Funcion que define el potencial esperando para una carga puntual
@@ -133,7 +134,7 @@ program MAIN
 	implicit none
 	! Se establece el numero de puntos que se usará en la subdivision 
 	! del espacio
-	integer, parameter :: n = 15
+	integer, parameter :: n = 19
 	double precision :: tx, ty, tz, L, potencial
 	double precision, dimension(n**3) :: b
 	real :: start, finish
