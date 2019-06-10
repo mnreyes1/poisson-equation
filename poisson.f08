@@ -17,7 +17,7 @@ subroutine carga_puntual(i, j, k, L, n, rho)
     ! donde q = 1 es la carga. En caso contrario asigna el valor 0
     ! por lo que estamos representando un delta de Dirac.
 	if (i == n / 2 .and. j == n / 2 .and. k == n / 2) then 
-		rho = 1.0d+0 * h**2
+		rho = 1.0d+0 / h
 	else
 		rho = 0.0d+0
 	end if
@@ -117,7 +117,7 @@ subroutine potencial_esperado(x, L)
 	double precision, intent(out) :: x
 	real(8),  parameter :: PI_8  = 4 * atan (1.0_8)
 
-	r = (3.0d+0 * (L/2)**2)**(0.5d+0)
+	r = (1.0d+0 * (L/2)**2)**(0.5d+0)
 	! Valor del potencial
 	x = -1.0d+0 / (r * 4.0d+0 * PI_8)
 
