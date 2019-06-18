@@ -35,7 +35,6 @@ X = [(((i // n**2) % n) - n // 2) * h for i in range(n**3)]
 Y = [(((i // n) % n) - n // 2) * h for i in range(n**3)]
 Z = [((i % n) - n // 2) * h for i in range(n**3)]
 
-
 # Lista en la que se guardaran los valores del potencial
 P = []
 for i in range(n**3):
@@ -71,7 +70,7 @@ def graficar_curvas_nivel():
     # Grafica todas las curvas de nivel del sistema y las compara
     # con los valores esoerados para una distribucion de carga
     # puntual. Para cada curva de nivel posible, se genera un grafico.
-    for m in range(n // 2 + 1):
+    for m in range(n // 2):
         plot_numerico = []
         plot_esperado = []
         for i in range(n**3):

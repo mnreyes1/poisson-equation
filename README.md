@@ -42,13 +42,13 @@ to compile all fortran files. After that, execute
 
     mv blas_UNIX.a libblas.a
 
-to rename the created library. After creating the library called “libblas.a”, copy that file to your library folder by executing the following command
+to rename the created library. Probably, you have to change "UNIX" for "LINUX" (look in the BLAS folder for a file with a similar name). After creating the library called “libblas.a”, copy that file to your library folder by executing the following command
 
     sudo cp libblas.a /usr/local/lib/
 
 The above directory can be replaced by any library path in your systems.
 
-Now we have installed the BLAS package. Then switch to the LAPACK directory and adjust the file “make.inc” if necessary. After setting all parameters correctly, type the command
+Now we have installed the BLAS package. Then switch to the LAPACK directory and adjust the file “make.inc” if necessary (in the lapack directory will be a make.inc.example file. You can change the name to make.inc). After setting all parameters correctly, type the command
 
     make
 
