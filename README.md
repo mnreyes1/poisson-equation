@@ -56,7 +56,16 @@ Now, you created a library e.g. called “lapack_MACOS.a”. Copy that file to y
 
     sudo cp liblapack.a /usr/local/lib/
 
-Congratulation, you’ve installed BLAS and LAPACK on your systems!
+Congratulation, you’ve installed BLAS and LAPACK on your system!
 
 Note: when using C++, do not forget to point out your search directory for header files with option “-I”, and add your library path with “-L” for libraries with “-l” if the search paths for the header files and libraries are not included.
 
+## Installing Matplotlib and numpy
+
+Numpy:
+
+    sudo apt install python3-numpy
+
+Matplotlib:
+
+    sudo apt install python3-matplotlib
