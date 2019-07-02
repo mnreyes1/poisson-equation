@@ -17,7 +17,7 @@ subroutine carga_puntual(i, j, k, L, n, rho)
     ! donde q = 1 es la carga. En caso contrario asigna el valor 0
     ! por lo que estamos representando un delta de Dirac.
 	if (i == n / 2 .and. j == n / 2 .and. k == n / 2) then 
-		rho = 1.0d+0 / h
+		rho = 1.0d+0 / h ! *h^2/h^3 (h^3 por que densidad es carga/volumen)
 	else
 		rho = 0.0d+0
 	end if
