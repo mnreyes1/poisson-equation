@@ -70,7 +70,7 @@ def graficar_curvas_nivel():
     # Grafica todas las curvas de nivel del sistema y las compara
     # con los valores esoerados para una distribucion de carga
     # puntual. Para cada curva de nivel posible, se genera un grafico.
-    for m in range(n // 2):
+    for m in range(-1 * n // 2 + 1, n // 2 - 1):
         plot_numerico = []
         plot_esperado = []
         for i in range(n**3):
@@ -81,8 +81,8 @@ def graficar_curvas_nivel():
             # potencial obtenido numericamente, y el potencial esperado,
             # y los agregamos a una lista.
             if X[i] == 0 and abs(Y[i] - m * h) < (h / 3):
-                plot_numerico.append(P[i])
-                plot_esperado.append(data[i])
+                plot_numerico.append(data[i])
+                plot_esperado.append(P[i])
 
         # Se grafican los resultados. En negro esta el valor esperado
         # y en rojo el obtenido.
